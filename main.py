@@ -3,7 +3,6 @@ from json import loads
 import confluent_kafka
 import csv
 
-'Aktueller Stand der Ergebnisse'
 
 # Kafka-Producer-Konfiguration
 producer = KafkaProducer(bootstrap_servers='localhost:9092')
