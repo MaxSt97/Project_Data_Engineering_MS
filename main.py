@@ -2,7 +2,7 @@ from kafka import KafkaProducer, KafkaConsumer
 from json import loads
 import confluent_kafka
 import csv
-
+x
 
 # Kafka-Producer-Konfiguration
 producer = KafkaProducer(bootstrap_servers='localhost:9092')
