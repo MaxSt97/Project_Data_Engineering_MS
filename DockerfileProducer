@@ -1,0 +1,20 @@
+FROM python:3.8
+
+# Erstelle ein Arbeitsverzeichnis
+WORKDIR /app
+
+# Erstelle und aktiviere eine virtuelle Umgebung
+RUN python -m venv venv
+RUN . venv/bin/activate
+
+# Installiere das Kafka Python-Modul
+RUN pip install kafka-python
+RUN pip install psycopg2
+
+# Kopiere das Python-Skript in das Arbeitsverzeichnis
+
+COPY producer.py .
+COPY data_cleaned_1000.csv .
+
+
+CMD ["python", "producer.py"]

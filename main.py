@@ -52,6 +52,6 @@ for message in consumer:
 
     mongo_collection.insert_one({'message': message_parts})
 
-
+print(field_names)
 # Löschen Sie den gesamten Inhalt der Collection
 #result = mongo_collection.delete_many({})
