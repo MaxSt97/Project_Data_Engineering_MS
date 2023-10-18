@@ -44,11 +44,11 @@ services:
 
   consumer:
     build:
-      context: ..
+      context: .
       dockerfile: ./DockerfileConsumer
     volumes:
       - ./consumer.py:/app/consumer.py
-    command: sh -c "sleep 40 && python /app/consumer.py"
+    command: sh -c "sleep 20 && python /app/consumer.py"
 
 
 

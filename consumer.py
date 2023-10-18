@@ -2,11 +2,15 @@ from kafka import KafkaConsumer
 
 
 # Kafka-Consumer-Konfiguration
-consumer = KafkaConsumer(bootstrap_servers='broker:9092')
 
+consumer = KafkaConsumer(
+    'topicxx',
+    bootstrap_servers=['broker:9092'],
+    auto_offset_reset='earliest',
+    consumer_timeout_ms=2000)
 # Das gewünschte Kafka-Topic abonnieren
-consumer.subscribe(['topicxx'])
-print(consumer)
+
+
 for message in consumer:
     print(f'Nachricht empfangen: {message.value}')
 
