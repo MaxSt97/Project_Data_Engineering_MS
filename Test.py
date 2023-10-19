@@ -10,12 +10,14 @@ import psycopg2
 try:
     conn = psycopg2.connect(
         host="localhost",
-        database="my_database",  # Ändern Sie den Datenbanknamen entsprechend
-        user="postgres",
-        password="postgres"
+        database="raw_data",  # Ändern Sie den Datenbanknamen entsprechend
+        user="my_username",
+        password="my_password",
+        port="5433"
     )
     print("Verbindung zur PostgreSQL-Datenbank erfolgreich hergestellt.")
 except Exception as e:
+    print("XXX")
     print(e)
     conn = None
 
