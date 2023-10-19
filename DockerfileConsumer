@@ -1,20 +1,21 @@
-FROM python:3.8
+FROM python:3.11
 
 # Erstellen ein Arbeitsverzeichnis
 WORKDIR /app
 
-# Erstellen und aktivieren eine virtuelle Umgebung
+# Erstellen und aktivieren einer virtuellen Umgebung
 RUN python -m venv venv
 RUN . venv/bin/activate
 
 # Installieren erforderliche Python-Module in der virtuellen Umgebung
+
+
 RUN pip install kafka-python
-RUN pip install psycopg2
-RUN pip install confluent-kafka
+RUN pip install psycopg2-binary
 
 
 # Kopieren das Python-Skript in das Arbeitsverzeichnis
 COPY consumer.py .
 
-
+# CMD-Befehl zum Ausführen des Skripts innerhalb der virtuellen Umgebung
 CMD ["python", "consumer.py"]

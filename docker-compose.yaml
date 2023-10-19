@@ -2,14 +2,17 @@ version: '3'
 
 services:
 
-  postgres:
+  raw_data_db:
     image: postgres:latest
+    container_name: raw_data_db
     environment:
-      POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: mypassword
-      POSTGRES_DB: mydb
+      POSTGRES_DB: raw_data
+      POSTGRES_USER: my_username
+      POSTGRES_PASSWORD: my_password
     ports:
       - "5433:5432"
+    volumes:
+      - /path/to/store/data:/var/lib/postgresql/data
 
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
@@ -49,6 +52,8 @@ services:
     volumes:
       - ./consumer.py:/app/consumer.py
     command: sh -c "sleep 20 && python /app/consumer.py"
+
+
 
 
 
