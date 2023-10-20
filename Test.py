@@ -1,15 +1,10 @@
-import psycopg2
+import csv
+import pandas as pd
 
+df = pd.read_csv(r'C:\Users\MaximilianStoepler\PycharmProjects\Project Data Engineering II IU\data_cleaned_1000.csv', sep=',', header=None)
 
-try:
-
-    conn = psycopg2.connect(
-        host="localhost",
-        database="raw_data",
-        user="my_username",
-        password="my_password",
-        port="5432"
-
-)
-except Exception as error:
-    print(f"Fehler bei der Verbindung zur Datenbank oder beim Erstellen der Tabelle: {error}")
+#remove last column from df
+df = df.iloc[:, :-1]
+#store back to csv
+df.to_csv(r'C:\Users\MaximilianStoepler\PycharmProjects\Project Data Engineering II IU\data_cleaned_1000.csv', index=False, header=False)
+print(df)
