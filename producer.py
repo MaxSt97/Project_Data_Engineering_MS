@@ -1,3 +1,4 @@
+#import
 from kafka import KafkaProducer
 import csv
 # Kafka-Producer-Konfiguration
