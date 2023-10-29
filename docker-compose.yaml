@@ -35,7 +35,6 @@ services:
     depends_on:
       - zookeeper
 
-
   producer:
     build:
       context: .
@@ -51,9 +50,20 @@ services:
       dockerfile: ./DockerfileConsumer
     volumes:
       - ./consumer.py:/app/consumer.py
-    command: sh -c "sleep 10 && python /app/consumer.py"
+    command: sh -c "sleep 30 && python /app/consumer.py"
 
-
+  jupyter-pyspark-notebook:
+    build:
+      context: .  # Verweist auf das Verzeichnis, in dem sich das Dockerfile befindet
+      dockerfile: ./DockerfileSpark  # Das zuvor erstellte Dockerfile
+    hostname: jupyter-pyspark-notebook
+    container_name: jupyter-pyspark-notebook
+    ports:
+      - "8888:8888"
+    restart: always
+    volumes:
+      - ./Spark.py:/app/Spark.py
+    command: sh -c "sleep 40 && python /app/Spark.py"
 
 
 

@@ -1,0 +1,11 @@
+FROM jupyter/pyspark-notebook:python-3.9.13
+
+RUN pip install pyspark
+
+COPY Spark.py /app/Spark.py
+
+COPY postgres-jdbc-driver.jar /app/postgres-jdbc-driver.jar
+ENV SPARK_CLASSPATH=/app/postgres-jdbc-driver.jar
+
+
+CMD ["python", "/app/Spark.py"]
