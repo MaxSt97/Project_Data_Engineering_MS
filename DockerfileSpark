@@ -1,5 +1,6 @@
-FROM jupyter/pyspark-notebook:python-3.9.13
+FROM jupyter/pyspark-notebook:latest
 
+RUN pip install psycopg2-binary
 RUN pip install pyspark
 
 COPY Spark.py /app/Spark.py
