@@ -46,6 +46,11 @@ services:
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker:9092
     depends_on:
       - zookeeper
+    healthcheck:
+      test: ["CMD", "nc", "-z", "localhost", "9092"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
 
   producer:
     build:
@@ -54,7 +59,11 @@ services:
     volumes:
       - ./producer.py:/app/producer.py
       - ./data_cleaned_1000.csv:/app/data_cleaned_1000.csv
-    command: sh -c "sleep 10 && python /app/producer.py"
+    command: python /app/producer.py
+    depends_on:
+      broker:
+        condition: service_healthy
+        restart: false
 
   consumer:
     build:
@@ -62,12 +71,16 @@ services:
       dockerfile: ./DockerfileConsumer
     volumes:
       - ./consumer.py:/app/consumer.py
-    command: sh -c "sleep 30 && python /app/consumer.py"
+    command: python /app/consumer.py
+    depends_on:
+      producer:
+        condition: service_completed_successfully
+        restart: false
 
   jupyter-pyspark-notebook:
     build:
-      context: .  # Verweist auf das Verzeichnis, in dem sich das Dockerfile befindet
-      dockerfile: ./DockerfileSpark  # Das zuvor erstellte Dockerfile
+      context: .
+      dockerfile: ./DockerfileSpark
     hostname: jupyter-pyspark-notebook
     container_name: jupyter-pyspark-notebook
     ports:
@@ -75,7 +88,12 @@ services:
     #restart: always
     volumes:
       - ./Spark.py:/app/Spark.py
-    command: sh -c "sleep 40 && python /app/Spark.py"
+    command: python /app/Spark.py
+    depends_on:
+      consumer:
+        condition: service_completed_successfully
+        restart: false
+
 
 
 

@@ -1,15 +1,24 @@
 from kafka import KafkaProducer
 import csv
-# Kafka-Producer-Konfiguration
-producer = KafkaProducer(bootstrap_servers='broker:9092')
 
-#Datei einlesen und an die Kafka-Topic senden.
-with open('data_cleaned_1000.csv', 'r') as file:
-    reader = csv.reader(file)
-    for row in reader:
-        message = ','.join(row).encode('utf-8')
-        producer.send('topicxx', value=message)
-        print(f'Nachricht gesendet: {message}')
+# Konstanten für die Konfiguration
+KAFKA_BROKER = 'broker:9092'
+CSV_FILE_PATH = 'data_cleaned_1000.csv'
+KAFKA_TOPIC = 'topicxx'
+
+# Kafka-Producer-Konfiguration
+producer = KafkaProducer(bootstrap_servers=KAFKA_BROKER)
+
+# Datei einlesen und an die Kafka-Topic senden.
+try:
+    with open(CSV_FILE_PATH, 'r') as file:
+        reader = csv.reader(file)
+        for row in reader:
+            message = ','.join(row).encode('utf-8')
+            producer.send(KAFKA_TOPIC, value=message)
+            print(f'Nachricht gesendet: {message}')
+except FileNotFoundError:
+    print(f'Die Datei {CSV_FILE_PATH} wurde nicht gefunden.')
 
 # Producer-Verbindung beenden
 producer.close()
