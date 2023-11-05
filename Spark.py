@@ -1,6 +1,7 @@
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import col
 import psycopg2
+from scipy import stats
 
 
 # Konfiguration für die "raw_data" Datenbank
@@ -104,20 +105,30 @@ try:
             "improvement_surcharge": "double",
             "total_amount": "double",
             "congestion_surcharge": "double",
-            "some_int_column": "int"
+            "airport_fee": "int"
         }
 
         df = df.select(*[
             col(column).cast(conversion_rules.get(column, "string")).alias(column)
             for column in df.columns
         ])
+
         df = df.na.drop(how='any')
-        try:
-            df.write.jdbc(url=cleaned_data_url, table=CLEANED_DATA_TABLE_NAME, mode="overwrite",
-                        properties=cleaned_data_properties)
-            print(f"Schreiben der Daten in die Tabelle {CLEANED_DATA_TABLE_NAME} erfolgreich.")
-        except Exception as e:
-            print(f"Schreiben der Daten in die Tabelle {CLEANED_DATA_TABLE_NAME} nicht erfolgreich. Fehler: {e}")
+        #drop duplicate rows from dataframe where picup_datetime and dropoff_datetime and trip_distance are same
+        df = df.dropDuplicates(subset=['pickup_datetime', 'dropoff_datetime', 'trip_distance'])
+        #drop rows where trip_distance is 0 because we cant actual distance with pickup and dropoff location
+        df = df.filter(df['trip_distance'] != 0)
+
+
+
+
+        #add column which calculates the trip duration in minutes and two decimal places
+        df = df.withColumn("trip_duration", ((col("dropoff_datetime").cast("long") - col("pickup_datetime").cast("long")) / 60).cast("decimal(10,2)"))
+
+
+        df.write.jdbc(url=cleaned_data_url, table=CLEANED_DATA_TABLE_NAME, mode="overwrite",
+                    properties=cleaned_data_properties)
+        print(f"Schreiben der Daten in die Tabelle {CLEANED_DATA_TABLE_NAME} erfolgreich.")
     except Exception as e:
         print(f"Schreiben der Daten in die Tabelle {CLEANED_DATA_TABLE_NAME} nicht erfolgreich. Fehler: {e}")
 

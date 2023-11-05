@@ -94,6 +94,24 @@ services:
         condition: service_completed_successfully
         restart: false
 
+  insight_plot:
+    build:
+      context: .
+      dockerfile: ./DockerfileInsight
+    hostname: insight_plot
+    container_name: insight_plot
+    ports:
+      - "5000:5000"
+    #restart: always
+    volumes:
+      - ./insight_plot.py:/app/insight_plot.py
+    command: python /app/insight_plot.py
+    depends_on:
+      jupyter-pyspark-notebook:
+        condition: service_completed_successfully
+        restart: false
+
+
 
 
 

@@ -4,7 +4,7 @@ import csv
 # Konstanten für die Konfiguration
 KAFKA_BROKER = 'broker:9092'
 CSV_FILE_PATH = 'data_cleaned_1000.csv'
-KAFKA_TOPIC = 'topicxx'
+KAFKA_TOPIC = 'batch_pipeline_iu'
 
 # Kafka-Producer-Konfiguration
 producer = KafkaProducer(bootstrap_servers=KAFKA_BROKER)
