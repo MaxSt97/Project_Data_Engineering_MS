@@ -1,7 +1,8 @@
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import col
+from pyspark.sql.functions import col, broadcast
 import psycopg2
-from scipy import stats
+from sklearn.svm import OneClassSVM
+from sklearn.preprocessing import StandardScaler
 
 
 # Konfiguration für die "raw_data" Datenbank
@@ -48,6 +49,9 @@ spark = SparkSession.builder \
 
 # Daten aus der "raw_data"-Tabelle lesen
 df = spark.read.jdbc(url=raw_data_url, table=RAW_DATA_DB_NAME, properties=raw_data_properties)
+
+# Cache den DataFrame nach dem Laden der Daten
+#df = df.cache()
 
 column_mapping = {
     "unnamed0": "index",
@@ -113,15 +117,41 @@ try:
             for column in df.columns
         ])
 
+        #outlier handling for fare_amount
+
+        # Erstellen Sie ein DataFrame mit den relevanten Spalten
+        data = df.select("fare_amount", "trip_distance").toPandas()
+
+        # Skalieren Sie die Daten
+        scaler = StandardScaler()
+        data_scaled = scaler.fit_transform(data)
+
+        # Erstellen Sie ein One-Class SVM-Modell
+        model = OneClassSVM(kernel='linear', nu=0.03)  #nu validierung mit kreuzvalidierung
+
+        # Trainieren Sie das Modell
+        model.fit(data_scaled)
+
+        # Vorhersagen für Ausreißer
+        outliers = model.predict(data_scaled)
+
+        outliers_df = data.index[outliers == -1]
+        print(outliers_df)
+        #alle zeilen raus, die in outliers_df sind
+        for index in outliers_df:
+
+            df = df.drop(df.index[index])
+
+
         df = df.na.drop(how='any')
+        #drop columns store_and_fwd_flag, congestion_surcharge, airport_fee, improvement_surcharge, extra, mta_tax, tolls_amount, tip_amount
+        df = df.drop('store_and_fwd_flag', 'congestion_surcharge', 'airport_fee', 'improvement_surcharge', 'extra', 'mta_tax', 'tolls_amount', 'tip_amount')
         #drop duplicate rows from dataframe where picup_datetime and dropoff_datetime and trip_distance are same
         df = df.dropDuplicates(subset=['pickup_datetime', 'dropoff_datetime', 'trip_distance'])
         #drop rows where trip_distance is 0 because we cant actual distance with pickup and dropoff location
         df = df.filter(df['trip_distance'] != 0)
-
-
-
-
+        #drop row if total_amount is < 0 and payment_type is != 4
+        df = df.filter((df['total_amount'] >= 0) | (df['payment_type'] == 4))
         #add column which calculates the trip duration in minutes and two decimal places
         df = df.withColumn("trip_duration", ((col("dropoff_datetime").cast("long") - col("pickup_datetime").cast("long")) / 60).cast("decimal(10,2)"))
 
