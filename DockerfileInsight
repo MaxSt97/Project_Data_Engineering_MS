@@ -1,19 +1,18 @@
 FROM python:3.11
-# Erstelle ein Arbeitsverzeichnis
+#workdir
 WORKDIR /app
 
-# Erstelle und aktiviere eine virtuelle Umgebung
+#initiate and activate a virtual environment
 RUN python -m venv venv
 RUN . venv/bin/activate
 
-# Installiere das Kafka Python-Modul
+#install required python modules
 RUN pip install sqlalchemy
 RUN pip install pandas
 RUN pip install matplotlib
 RUN pip install psycopg2-binary
 
-# Kopiere das Python-Skript in das Arbeitsverzeichnis
-
+#copy python script to working directory
 COPY insight_plot.py .
 
 
