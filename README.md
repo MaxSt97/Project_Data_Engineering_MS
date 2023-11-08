@@ -11,7 +11,7 @@
 **Anforderungen Host-System**
 - Auf dem Hostsystem sollte Docker installiert sein, idealerweise mit der Docker Desktop komponente. Diese dient der visuellen Überwachung der Container. Auch können über diesen die Logs der Container eingesehen werden.
 - Das gesamte Repository muss im selben Verzeichnis des Hostsystems liegen. Hierzu muss auch folgende CSV-Rohdatei heruntergeladen werden. Auch diese muss im besagten Verzeichnis liegen. [Data](https://file.io/JevmUYhxdr18)
-- Die Installation von Python ist nicht notwendig, da dies bereits über die jeweiligen Container bereitgestellt.
+- Die Installation von Python ist nicht notwendig, da dies bereits über die jeweiligen Container bereitgestellt wird.
 
 **Architektur**
 
