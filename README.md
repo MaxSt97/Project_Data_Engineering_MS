@@ -14,7 +14,8 @@
 - Die Installation von Python ist nicht notwendig, da dies bereits über die jeweiligen Container bereitgestellt.
 
 **Architektur**
-![Skizze der Datenarchitektur](https://github.com/MaxSt97/Project_Data/assets/105374626/e9be2073-2e3e-4a6f-aa5e-cae355196747)
+
+![Skizze der Datenarchitektur](https://github.com/MaxSt97/Project_Data_Engineering_MS/assets/105374626/fd47b829-fcc1-45be-955d-5671c8a1e8da)
 
 **Ausführen der Pipeline**
 
