@@ -3,7 +3,7 @@ import csv
 
 # Konstanten für die Konfiguration
 KAFKA_BROKER = 'broker:9092'
-CSV_FILE_PATH = 'data_cleaned_1000.csv'
+CSV_FILE_PATH = 'nyc_yellow_taxi_trip_records.csv'
 KAFKA_TOPIC = 'batch_pipeline_iu'
 
 # Kafka-Producer-Konfiguration

@@ -58,6 +58,7 @@ services:
       dockerfile: ./DockerfileProducer
     volumes:
       - ./producer.py:/app/producer.py
+      - ./nyc_yellow_taxi_trip_records.csv:/app/nyc_yellow_taxi_trip_records.csv
       - ./data_cleaned_1000.csv:/app/data_cleaned_1000.csv
     command: python /app/producer.py
     depends_on:

@@ -32,7 +32,7 @@ try:
         port=RAW_DATA_DB_PORT
     )
     raw_data_cursor = raw_data_conn.cursor()
-    print("Verbindung zur PostgreSQL-Datenbank erfolgreich hergestellt.")
+    print(f"Verbindung zur PostgreSQL-Datenbank {RAW_DATA_DB_NAME} erfolgreich hergestellt.")
 
     columns_and_types = ", ".join([f"{col} text" for col in header_row])
 
@@ -52,10 +52,10 @@ try:
         raw_data_cursor.execute(insert_query, data_values)
         raw_data_conn.commit()
 
-    print("Tabelle erfolgreich erstellt und Daten eingefügt.")
+    print(f"Tabelle {table_name} erfolgreich erstellt und Daten eingefügt.")
 
 except Exception as error:
-    print(f"Fehler bei der Verbindung zur Datenbank oder beim Erstellen der Tabelle: {error}")
+    print(f"Fehler bei der Verbindung zur Datenbank {RAW_DATA_DB_NAME} oder beim Erstellen der Tabelle: {error}")
 finally:
     # Verbindung und Cursor schließen
     if raw_data_cursor:
