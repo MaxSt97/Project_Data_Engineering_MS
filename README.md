@@ -39,5 +39,9 @@ jupyter-pyspark-notebook               | Schreiben der Daten in die Tabelle clea
 
 **Insight Plots**
 
+![Trip_Distance_vs_Fare_Amount_Color-coded_by_Trip_Duration](https://github.com/MaxSt97/Project_Data_Engineering_MS/assets/105374626/778bf25d-7637-4803-b54a-a19a53dc7e8c)
+![Fahrten_pro_Stunde](https://github.com/MaxSt97/Project_Data_Engineering_MS/assets/105374626/942fb553-8376-4490-9d99-224c30bf28d0)
+![Umsatz_nach_VendorID](https://github.com/MaxSt97/Project_Data_Engineering_MS/assets/105374626/a192980a-e864-4173-aae1-c1e0438941d3)
+
 
 
