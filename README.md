@@ -1,6 +1,6 @@
 # Project_Data_Engineering_DLMDWWDE02
 **Hintergrund**
-- Zu erstellen war eine Batch-Pipeline, welche für eine datenintensive Applikation mindestens eine Millionen Datensätze zu einem fiktiven Use_Case einließt, verarbeitet, speichert.
+- Zu erstellen war eine Batch-Pipeline, welche für eine datenintensive Applikation mindestens eine Millionen Datensätze zu einem fiktiven Use_Case einließt, verarbeitet und speichert.
 - Diese Daten sollen im weiteren Verlauf, welcher nicht Teil dieses Moduls ist, für die Aktualisierung eines ML-Alogirhtmus genutzt werden.
 
 **Anforderungen Use-Case**
