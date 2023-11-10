@@ -19,19 +19,20 @@
 
 **Ausführen der Pipeline**
 
-1. Im lokalen Verzeichnis "CMD" ausführen. Im Ordner "Project Data Engineering II IU" liegen beispielsweise alle Dateien. 
+1. Docker muss gestartet sein.
+2. Im lokalen Verzeichnis "CMD" ausführen. Im Ordner "Project Data Engineering II IU" liegen beispielsweise alle Dateien. 
 ```
 C:\Users\PycharmProjects\Project Data Engineering II IU>
 ```
-2. Docker-Container Images erstellen:
+3. Docker-Container Images erstellen:
 ```
 docker-compose build --no-cache
 ```
-3. Pipeline Ausführen.
+4. Pipeline Ausführen.
 ```
 docker-compose up
 ```
-4. Pipeline führt alle zuvor definierten Schritte aus. Die angezeigten Logs in CMD geben Auskunft über den aktuellen Status. Es wurden verschiedene Informationen für den Endnutzer hinzugefügt. Beispielsweise:
+5. Pipeline führt alle zuvor definierten Schritte aus. Die angezeigten Logs in CMD geben Auskunft über den aktuellen Status. Es wurden verschiedene Informationen für den Endnutzer hinzugefügt. Beispielsweise:
 ```
 jupyter-pyspark-notebook               | Verbindung zur PostgreSQL-Datenbank cleaned_data erfolgreich hergestellt.
 jupyter-pyspark-notebook               | Es wurden 63417 Ausreißer entfernt.
