@@ -19,7 +19,7 @@
 
 **Ausführen der Pipeline**
 
-1. Docker muss gestartet sein.
+1. Docker starten.
 2. Im lokalen Verzeichnis "CMD" ausführen. Im Ordner "Project Data Engineering II IU" liegen beispielsweise alle Dateien. 
 ```
 C:\Users\PycharmProjects\Project Data Engineering II IU>
