@@ -10,7 +10,7 @@
 
 **Anforderungen Host-System**
 - Auf dem Hostsystem sollte Docker installiert sein, idealerweise mit der Docker Desktop komponente. Diese dient der visuellen Überwachung der Container. Auch können über diesen die Logs der Container eingesehen werden.
-- Das gesamte Repository muss im selben Verzeichnis des Hostsystems liegen. Hierzu muss auch folgende CSV-Rohdatei heruntergeladen werden. Auch diese muss im besagten Verzeichnis liegen. [Data](https://file.io/JevmUYhxdr18)
+- Das gesamte Repository muss im selben Verzeichnis des Hostsystems liegen. Hierzu muss auch folgende CSV-Rohdatei "nyc_yellow_taxi_trip_records.7z" heruntergeladen werden. Auch diese muss im besagten Verzeichnis liegen. Diese muss vor Nutzung entpackt werden. Hierfür kann beispielsweise 7zip genutzt werden. 
 - Die Installation von Python ist nicht notwendig, da dies bereits über die jeweiligen Container bereitgestellt wird.
 
 **Architektur**
