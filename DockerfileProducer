@@ -13,7 +13,6 @@ RUN pip install psycopg2-binary
 #copy python script to working directory
 COPY producer.py .
 COPY nyc_yellow_taxi_trip_records.csv .
-COPY data_cleaned_1000.csv .
 
 
 CMD ["python", "producer.py"]
